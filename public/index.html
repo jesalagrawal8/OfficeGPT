@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OfficeGPT - Your Intelligent Office Assistant</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="logo">
+          <svg
+            width="50"
+            height="50"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="40" height="40" rx="8" fill="url(#gradient)" />
+            <path
+              d="M20 10L28 16V24L20 30L12 24V16L20 10Z"
+              fill="white"
+              opacity="0.9"
+            />
+            <defs>
+              <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                <stop offset="0%" stop-color="#667eea" />
+                <stop offset="100%" stop-color="#764ba2" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <h1>OfficeGPT</h1>
+        </div>
+        <p class="subtitle">Summarize and Find Details in Long Documents & PDFs</p>
+        <p class="description">Upload your documents and let AI help you understand them instantly. Ask questions, get summaries, and extract key information from lengthy PDFs in seconds.</p>
+      </header>
+
+      <div class="main-content">
+        <!-- Upload Section -->
+        <div class="upload-section">
+          <h2>📄 Upload Documents</h2>
+          <div class="upload-area" id="uploadArea">
+            <svg
+              class="upload-icon"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <p class="upload-text">
+              Drag & drop your PDF here or click to browse
+            </p>
+            <input type="file" id="fileInput" accept=".pdf" hidden />
+            <button class="btn-primary" id="chooseFileBtn">
+              Choose File
+            </button>
+          </div>
+          <div id="uploadStatus" class="upload-status"></div>
+        </div>
+
+        <!-- Chat Section -->
+        <div class="chat-section">
+          <h2>💬 Chat with Your Documents</h2>
+          <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+              <div class="message assistant">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                  <p>
+                    Hello! I'm OfficeGPT. Upload a PDF document and I'll help
+                    you find information from it. Ask me anything!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="chat-input-container">
+              <textarea
+                id="userInput"
+                placeholder="Ask a question about your documents..."
+                rows="1"
+              ></textarea>
+              <button id="sendBtn" class="btn-send" onclick="sendMessage()">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>Powered by Gemini Embeddings, Groq AI & Pinecone Vector DB</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

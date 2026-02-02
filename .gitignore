@@ -1,0 +1,22 @@
+﻿# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+bun.lockb
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
