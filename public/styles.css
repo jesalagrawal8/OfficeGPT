@@ -78,16 +78,16 @@ body {
   .logo h1 {
     font-size: 2rem;
   }
-  
+
   .logo svg {
     width: 35px;
     height: 35px;
   }
-  
+
   .subtitle {
     font-size: 1.1rem !important;
   }
-  
+
   .description {
     font-size: 0.9rem !important;
   }
@@ -159,7 +159,7 @@ body {
   .upload-section {
     padding: 1.5rem;
   }
-  
+
   .upload-section h2 {
     font-size: 1.3rem;
   }
@@ -285,7 +285,7 @@ body {
     padding: 1.5rem;
     height: 500px;
   }
-  
+
   .chat-section h2 {
     font-size: 1.3rem;
   }

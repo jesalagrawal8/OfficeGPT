@@ -18,25 +18,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, "document-" + uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
+// Configure multer for file uploads (memory storage for serverless)
 const upload = multer({
-  storage: storage,
+  storage: multer.memoryStorage(), // Store in memory instead of disk for Vercel/serverless
   fileFilter: (req, file, cb) => {
     if (path.extname(file.originalname).toLowerCase() === ".pdf") {
       cb(null, true);
@@ -57,26 +41,15 @@ app.get("/", (req, res) => {
 
 // Upload and index PDF
 app.post("/api/upload", upload.single("pdf"), async (req, res) => {
-  let filePath = null;
-
   try {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
-    filePath = req.file.path;
     console.log(`Processing uploaded file: ${req.file.originalname}`);
 
-    // Index the document
-    await indexTheDocument(filePath);
-
-    // ✅ DELETE FILE AFTER PROCESSING - Important for deployment!
-    // The document chunks are now safely stored in Pinecone (cloud)
-    // No need to keep the local file
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-      console.log(`✓ Cleaned up local file: ${req.file.originalname}`);
-    }
+    // Index the document (pass buffer for serverless compatibility)
+    await indexTheDocument(req.file.buffer, req.file.originalname);
 
     res.json({
       success: true,
@@ -86,12 +59,6 @@ app.post("/api/upload", upload.single("pdf"), async (req, res) => {
     });
   } catch (error) {
     console.error("Upload error:", error);
-
-    // Cleanup file on error too
-    if (filePath && fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-      console.log(`✓ Cleaned up file after error`);
-    }
 
     res.status(500).json({
       error: "Failed to process PDF",
