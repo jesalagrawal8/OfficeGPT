@@ -9,8 +9,6 @@ bun install
 bun start
 ```
 
-Open http://localhost:3000
-
 📖 **[Full Documentation](./DEPLOYMENT.md)** - Installation, deployment, and troubleshooting guide
 
 ## Features
